@@ -36,4 +36,4 @@ psch -s 15
 - [Sharprompt](https://github.com/shibayan/Sharprompt) - Interactive command-line based application framework for C#
 
 ## License
-Released under the MIT license.
+[Released under the MIT license.](https://github.com/MaciejTrudnos/PowerShell-Command-History/blob/master/LICENSE)
