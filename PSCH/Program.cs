@@ -62,9 +62,19 @@ class Program
         if (!File.Exists(_filePath))
             throw new FileNotFoundException($"{_filePath}");
 
-        var commandHistory = File.ReadAllLines(_filePath)
-                .Reverse()
-                .Distinct();
+        var commandHistory =  new List<string>();
+        
+        foreach (var cmd in File.ReadLines(_filePath).Reverse().Distinct())
+        {
+            if (cmd.StartsWith("psch", StringComparison.InvariantCultureIgnoreCase))
+            {
+                continue;
+            }
+            else
+            {
+                commandHistory.Add(cmd);
+            }
+        }
 
         Prompt.Symbols.Prompt = new Symbol("", "Filter:");
         Prompt.ColorSchema.PromptSymbol = ConsoleColor.Gray;
@@ -103,21 +113,11 @@ class Program
         return value % 2 != 0;
     }
 
-    static void ClearPSCH(IEnumerable<string> commandHistory)
+    static void ClearPSCH(List<string> commandHistory)
     {
         File.Delete(_filePath);
 
         using StreamWriter sw = File.AppendText(_filePath);
-        foreach (var command in commandHistory)
-        {
-            if (command.StartsWith("psch", StringComparison.InvariantCultureIgnoreCase))
-            {
-                continue;
-            }
-            else
-            {
-                sw.WriteLine(command);
-            }
-        }
+        commandHistory.ForEach(x => sw.WriteLine(x));
     }
 }

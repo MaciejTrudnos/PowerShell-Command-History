@@ -1,5 +1,6 @@
-# PowerShell Command Hisory
-Console application to allow user look list all of the command that have been run from PowerShell terminal.
+# PowerShell Command History
+Console application allow copy to clipboard selected item from list all of the command that have been run from PowerShell terminal.
+![PowerShell-Command-History](https://user-images.githubusercontent.com/35919087/163270057-0306d46f-588a-47ea-95ae-6fadefb3a424.gif)
 
 ## Features
 - Returns list of all the command that have been run from PowerShell terminal
