@@ -5,7 +5,18 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Copyright>MaciejTrudnos</Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/MaciejTrudnos/PowerShell-Command-History</RepositoryUrl>
+    <Company>mtdeveloper.com</Company>
+    <Product>PowerShell-Command-History</Product>
+    <Description>Interactive PowerShell command history list</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="LICENSE" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Sharprompt" Version="2.4.1" />
