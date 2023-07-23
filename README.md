@@ -34,6 +34,18 @@ Set page size as 15
 ```sh
 psch -s 15
 ```
+Save command
+```sh
+psch -s
+```
+Remove command
+```sh
+psch -r
+```
+Saved commands list
+```sh
+psch -f
+```
 
 ## Tech
 - [Sharprompt](https://github.com/shibayan/Sharprompt) - Interactive command-line based application framework for C#
