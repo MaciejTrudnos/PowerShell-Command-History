@@ -10,6 +10,7 @@ Console application allow copy to clipboard selected item from list all of the c
 - Allows filter the commands in the list
 - Allows set page size list
 - Copies the selected command to the clipboard
+- Save favourites commands
 
 ## Installation
 Put the published version of the application into the program files directory e.g.
