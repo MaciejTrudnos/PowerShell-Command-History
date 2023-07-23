@@ -1,5 +1,4 @@
 # PowerShell Command History
-[![Build](https://github.com/MaciejTrudnos/PowerShell-Command-History/workflows/Build/badge.svg)](https://github.com/MaciejTrudnos/PowerShell-Command-History/actions/workflows/dotnet.yml)
 
 Console application allow copy to clipboard selected item from list all of the command that have been run from PowerShell terminal.
 
