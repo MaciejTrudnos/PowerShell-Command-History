@@ -1,5 +1,8 @@
-﻿using PSCH.Data;
+﻿using OpenAI.ObjectModels;
+using OpenAI.ObjectModels.RequestModels;
+using PSCH.Data;
 using PSCH.Model;
+using PSCH.Services;
 using Sharprompt;
 using System.Windows.Forms;
 
@@ -7,8 +10,13 @@ class Program
 {
     private readonly static string _filePath = Environment.ExpandEnvironmentVariables(@"%userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt");
     private readonly static DataContext _dbContext = new();
+    private readonly static List<ChatMessage> _messages = 
+        [
+            ChatMessage.FromSystem("You are a helpful assistant."),
+            ChatMessage.FromSystem("Return only powershell command in one line.")
+        ];
 
-    [STAThread]
+[STAThread]
     private static void Main(string[] args)
     {
         if (args.Length == 0)
@@ -23,6 +31,58 @@ class Program
             Clipboard.SetText(selectedCommand);
 
             ClearPSCH(psch);
+
+            return;
+        }
+
+        if (args[0] == "-gpt")
+        {
+            var apiKey = Environment
+                .GetEnvironmentVariable("OPEN_AI_API_KEY");
+
+            if (string.IsNullOrEmpty(apiKey))
+                throw new ArgumentException("OPEN_AI_API_KEY Environment variable value not found");
+
+            var model = Models.Gpt_4o;
+            
+            if (args.Length == 2)
+                model = args[1];
+
+            var gpt = new ChatGptService(apiKey, model);
+
+            var stopChat = false;
+            int chatCounter = 0;
+
+            do
+            {
+                if (chatCounter > 100)
+                {
+                    Console.WriteLine("Too Many Requests");
+                    break;
+                }
+
+                var message = Prompt.Input<string>("", placeholder: "Send a message...");
+
+                _messages.Add(ChatMessage.FromUser(message));
+
+                var request = gpt.SendMessage(_messages);
+
+                request.Wait();
+
+                _messages.Add(ChatMessage.FromAssistant(request.Result));
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(request.Result);
+                Console.ResetColor();
+
+                stopChat = Prompt.Confirm("Close conversation and copy answer");
+
+                if (stopChat)
+                    Clipboard.SetText(request.Result);
+
+                chatCounter++;
+
+            } while (!stopChat);
 
             return;
         }

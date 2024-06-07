@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Betalgo.OpenAI" Version="8.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
     <PackageReference Include="Sharprompt" Version="2.4.5" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
