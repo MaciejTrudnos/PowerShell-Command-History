@@ -107,7 +107,7 @@ class Program
 
         if (args[0] == "-v")
         {
-            Console.WriteLine($"PowerShell Command History 1.1.0.1");
+            Console.WriteLine($"PowerShell Command History 1.2.0.0");
 
             return;
         }
