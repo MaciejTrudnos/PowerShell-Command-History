@@ -4,6 +4,7 @@ using PSCH.Data;
 using PSCH.Model;
 using PSCH.Services;
 using Sharprompt;
+using System.Reflection;
 using System.Windows.Forms;
 
 class Program
@@ -11,10 +12,10 @@ class Program
     private readonly static string _filePath = Environment.ExpandEnvironmentVariables(@"%userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt");
     private readonly static DataContext _dbContext = new();
     private readonly static List<ChatMessage> _messages = 
-        [
-            ChatMessage.FromSystem("You are a helpful assistant."),
-            ChatMessage.FromSystem("Return only powershell command in one line.")
-        ];
+    [
+        ChatMessage.FromSystem("You are a helpful assistant."),
+        ChatMessage.FromSystem("Return only powershell command in one line.")
+    ];
 
 [STAThread]
     private static void Main(string[] args)
@@ -56,10 +57,7 @@ class Program
             do
             {
                 if (chatCounter > 100)
-                {
-                    Console.WriteLine("Too Many Requests");
-                    break;
-                }
+                    throw new IndexOutOfRangeException("Too Many Requests");
 
                 var message = Prompt.Input<string>("", placeholder: "Send a message...");
 
@@ -107,7 +105,10 @@ class Program
 
         if (args[0] == "-v")
         {
-            Console.WriteLine($"PowerShell Command History 1.2.0.0");
+            var assembly = Assembly.GetExecutingAssembly();
+            var version = assembly.GetName().Version;
+
+            Console.WriteLine($"PowerShell Command History {version}");
 
             return;
         }
