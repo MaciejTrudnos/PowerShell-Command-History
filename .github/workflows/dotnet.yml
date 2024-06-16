@@ -11,9 +11,7 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -23,6 +21,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
+      uses: microsoft/setup-msbuild@v2
       run: msbuild /p:Configuration=Release
     - name: Test
       run: dotnet test --no-build --verbosity normal
